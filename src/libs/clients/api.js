@@ -267,7 +267,11 @@ class AmoApiClient {
         return resolve([]);
       }
 
-      tmp = JSON.parse(body);
+      try {
+        tmp = JSON.parse(body);
+      } catch (e) {
+        return reject({ message: 'Body is not valid json', body: body });
+      }
 
       if (!_.isObject(tmp)) {
         return reject({message: 'Body is not valid json', body});

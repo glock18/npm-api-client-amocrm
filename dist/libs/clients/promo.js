@@ -102,7 +102,11 @@ var PromoClientClass = function () {
             return reject(err);
           }
 
-          body = JSON.parse(body);
+          try {
+            body = JSON.parse(body);
+          } catch (e) {
+            return reject({ message: 'Body is not valid json', body: body });
+          }
 
           if (_underscore2.default.isObject(body) && typeof body.error === 'string') {
             return reject({ message: body.error });
